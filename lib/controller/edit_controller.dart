@@ -6,6 +6,8 @@ class EditController {
   EditState state;
   EditController(this.state);
 
+  get onChangedMajor => null;
+
   void save(){
     FormState? currentState = state.fromkey.currentState;
     if(currentState == null) return;
@@ -71,7 +73,22 @@ class EditController {
         state.model.user.classification = c;
       });
     }
-
-
   }
+
+  void onchangedMajor(Major? major){
+    if(major != null){
+      state.callSetState((){
+        state.model.user.major = major;
+      });
+    }
+  }
+
+  void onChangeLangeuage( bool? b, ProgLanguage key){
+    if(b != null){
+      state.callSetState((){
+        state.model.user.progLanguage![key] = b;
+      });
+    }
+  }
+  
 }

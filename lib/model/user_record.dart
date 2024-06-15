@@ -48,6 +48,33 @@ class UserRecord {
       progLanguage! [e] ??= false;
     }
   }
+  UserRecord clone(){
+      var copy = UserRecord(
+        email: email,
+        password: password,
+        name: name,
+        phone: phone,
+        age: age,
+        classification: classification,
+        major: major,
+      );
+      if(progLanguage != null){
+        copy.progLanguage = {...progLanguage!};
+      }
+      return copy;
+    }
+  void copyFrom(UserRecord obj){
+    email = obj.email;
+    password = obj.password;
+    name = obj.name;
+    phone = obj.phone;
+    age = obj.age;
+    classification = obj.classification;
+    major = obj.major;if(obj.progLanguage != null){
+      progLanguage = {...obj.progLanguage!};
+    }
+
+  }
 }
 
 List<UserRecord> fakeUserDB = [
