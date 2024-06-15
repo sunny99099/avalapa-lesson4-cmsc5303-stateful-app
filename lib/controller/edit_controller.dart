@@ -14,6 +14,7 @@ class EditController {
     if(!currentState.validate()) return;
 
     currentState.save();
+    state.model.origUser.copyFrom(state.model.user);
     Navigator.of(state.context).pop();
   }
 
