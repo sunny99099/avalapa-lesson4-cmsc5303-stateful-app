@@ -1,22 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:lesson4/controller/listViewDemo_controller.dart';
+import 'package:lesson4/model/book.dart';
+import 'package:lesson4/model/listViewScreen_model.dart';
 
-class ListviewdemoScreen extends StatefulWidget{
+class ListviewdemoScreen extends StatefulWidget {
   const ListviewdemoScreen({super.key});
 
-  static const routeName ="/ListviewdemoScreen";
+  static const routeName = "/ListviewdemoScreen";
 
   @override
   State<StatefulWidget> createState() {
     return ListViewState();
   }
-
 }
 
-class ListViewState extends State<ListviewdemoScreen>{
+class ListViewState extends State<ListviewdemoScreen> {
+  late ListviewdemoController con;
+  late ListviewscreenModel model;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    con = ListviewdemoController(this);
+    model = ListviewscreenModel();
+    con.loadBookList();
     print("Listviewdemo Screen: initState()");
   }
 
@@ -25,6 +32,7 @@ class ListViewState extends State<ListviewdemoScreen>{
     print("ListviewDemo Screen: dispose()");
     super.dispose();
   }
+
   @override
   Widget build(BuildContext context) {
     print("ListviewDemo Screen: Build()");
@@ -32,8 +40,30 @@ class ListViewState extends State<ListviewdemoScreen>{
       appBar: AppBar(
         title: const Text("List view Demo"),
       ),
-      body: const Text("List view demo body"), 
+      body: bodyview(),
     );
   }
 
+  void callSetState(fn) => setState(fn);
+
+  Widget bodyview() {
+    if (model.booklist == null) {
+      return const Center(child: CircularProgressIndicator());
+    } else {
+      return booklistview(model.booklist!);
+    }
+  }
+
+  Widget booklistview(List<Book> booklist) {
+    return ListView.builder(
+      itemCount: booklist.length,
+      itemBuilder: (BuildContext context,int index){
+        Book book = booklist[index];
+        return ListTile(
+          leading:Image.network(book.imageURILl),
+          title: Text(book.title),
+        );
+      },
+    );
+  }
 }
