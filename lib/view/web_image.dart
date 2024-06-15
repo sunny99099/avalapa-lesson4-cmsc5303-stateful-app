@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 class WebImage extends StatelessWidget{
   final String url;
   final double? height;
-  const WebImage({required this.url, required this.height, super.key});
+  const WebImage({required this.url, this.height, super.key});
   @override
   Widget build(BuildContext context) {
     return Image.network(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lesson4/controller/listViewDemo_controller.dart';
 import 'package:lesson4/model/book.dart';
 import 'package:lesson4/model/listViewScreen_model.dart';
+import 'package:lesson4/view/web_image.dart';
 
 class ListviewdemoScreen extends StatefulWidget {
   const ListviewdemoScreen({super.key});
@@ -39,6 +40,10 @@ class ListViewState extends State<ListviewdemoScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("List view Demo"),
+        actions: model.selected.isEmpty ? null: [
+          IconButton(onPressed: con.delete, icon: const Icon(Icons.delete),),
+          IconButton(onPressed: con.cancel, icon: const Icon(Icons.cancel),),
+        ],
       ),
       body: bodyview(),
     );
@@ -60,8 +65,12 @@ class ListViewState extends State<ListviewdemoScreen> {
       itemBuilder: (BuildContext context,int index){
         Book book = booklist[index];
         return ListTile(
-          leading:Image.network(book.imageURILl),
+          leading:WebImage(url: book.imageURILl),
+          trailing: const Icon(Icons.arrow_right),
+          tileColor: model.selected.contains(index) ? Colors.lime[100] : null,
           title: Text(book.title),
+          onTap: () => con.onTap(booklist[index]),
+          onLongPress: () => con.onLongPress(index),
         );
       },
     );
