@@ -33,6 +33,9 @@ class UserHomeState extends State<UserHomeScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home of ${widget.user.name}"),
+        actions: [
+          IconButton(onPressed: con.gotoEdit, icon: const Icon(Icons.edit))
+        ],
       ),
       body: SingleChildScrollView(
         child: Container(
