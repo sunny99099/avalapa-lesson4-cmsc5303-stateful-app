@@ -69,7 +69,7 @@ class ListViewState extends State<ListviewdemoScreen> {
           trailing: const Icon(Icons.arrow_right),
           tileColor: model.selected.contains(index) ? Colors.lime[100] : null,
           title: Text(book.title),
-          onTap: () => con.onTap(booklist[index]),
+          onTap: () => con.onTap(index),
           onLongPress: () => con.onLongPress(index),
         );
       },

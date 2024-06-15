@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:lesson4/model/book.dart';
+import 'package:lesson4/model/user_record.dart';
 import 'package:lesson4/view/bookdetailview__screen.dart';
 import 'package:lesson4/view/countdemo_Screen.dart';
 import 'package:lesson4/view/listViewDemo_Screen.dart';
 import 'package:lesson4/view/start_screen.dart';
+import 'package:lesson4/view/userHome_Screen.dart';
 
 void main() {
   runApp(const Lesson4App());
@@ -30,8 +32,17 @@ class Lesson4App extends StatelessWidget {
             return BookDetailViewScreen(args);
           }
           else{
-            return const Text("Argument is null or not a book");
+            return const Text("Argument is null or not a book: Book details");
           }
+        },
+        UserHomeScreen.routeName: (context){
+          Object? args = ModalRoute.of(context)?.settings.arguments;
+          if(args != null && args is UserRecord){
+            return UserHomeScreen(args);
+          }
+          else{
+            return const Text("Argument is null or not a book: User Home");
+          } 
         },
       },
     );

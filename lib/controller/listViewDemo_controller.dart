@@ -13,12 +13,19 @@ class ListviewdemoController {
     state.callSetState(() {});
   }
 
-  void onTap(Book book) {
-    Navigator.pushNamed(
-      state.context,
-      BookDetailViewScreen.routeName,
-      arguments: book,
-    );
+  void onTap(int index) {
+    if(state.model.selected.isEmpty){
+      Book book = state.model.booklist![index];
+      Navigator.pushNamed(
+        state.context,
+        BookDetailViewScreen.routeName,
+        arguments: book,
+      );
+    }
+    else{
+      onLongPress(index);
+    }
+    
   }
   void onLongPress(int index){
    state.callSetState((){
@@ -39,6 +46,12 @@ class ListviewdemoController {
   }
 
   void delete(){
-
+    state.model.selected.sort();
+    for(int i = state.model.selected.length - 1; i >= 0; i--){
+      state.model.booklist?.removeAt(state.model.selected[i]);
+    }
+    state.callSetState((){
+      state.model.selected.clear();
+    });
   }
 }
